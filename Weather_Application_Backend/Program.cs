@@ -1,4 +1,4 @@
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Weather_Application_Backend.Data;
 
 var builder = WebApplication.CreateBuilder(args);

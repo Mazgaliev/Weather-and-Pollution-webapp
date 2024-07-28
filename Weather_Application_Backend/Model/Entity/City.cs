@@ -13,7 +13,7 @@ namespace Weather_Application_Backend.Model.Entity
 
         public string Latitude { get; set; }
 
-        public ICollection<Station> Stations { get; set; }
+        public ICollection<Station> Stations { get; set; } = new List<Station>();
 
 
         public City() { }

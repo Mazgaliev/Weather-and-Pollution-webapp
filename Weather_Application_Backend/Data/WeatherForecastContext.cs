@@ -13,8 +13,6 @@ namespace Weather_Application_Backend.Data
 
         public DbSet<Station> Stations { get; set; }
 
-        public string DbPath { get; set; }
-
         public WeatherForecastContext(DbContextOptions options)
             : base(options)
         {
@@ -24,8 +22,9 @@ namespace Weather_Application_Backend.Data
             base.OnModelCreating(modelBuilder);
 
 
-            modelBuilder.Entity<Station>().HasOne(s => s.City)
-                .WithMany(c => c.Stations);
+            modelBuilder.Entity<City>().HasMany(c => c.Stations)
+                .WithOne(c => c.City)
+                .HasForeignKey(s => s.CityId);
 
             modelBuilder.Entity<Measurement>().HasOne(m => m.Station)
                 .WithMany(s => s.Measurements)
