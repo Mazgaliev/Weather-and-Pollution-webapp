@@ -1,5 +1,8 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Hangfire;
+using Microsoft.EntityFrameworkCore;
 using Weather_Application_Backend.Data;
+using Weather_Application_Backend.Jobs;
+using Weather_Application_Backend.Service.CityService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,10 +13,21 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.AddScoped<ICityRepository, CityRepository>();
+builder.Services.AddScoped<ICityService, CityService>();
+
 builder.Services.AddDbContext<WeatherForecastContext>(options =>
 {
-    options.UseSqlite(builder.Configuration["ConnectionStrings:WeatherForecastDbConnectionString"]);
+    options.UseSqlServer(builder.Configuration["ConnectionStrings:WeatherForecastDbConnectionString"]);
 });
+
+builder.Services.AddHangfire((sp, config) =>
+{
+    var connection_string = builder.Configuration["ConnectionStrings:WeatherForecastDbConnectionString"];
+    config.UseSqlServerStorage(connection_string);
+});
+
+builder.Services.AddHangfireServer();
 
 var app = builder.Build();
 
@@ -29,5 +43,10 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 app.MapControllers();
+
+app.UseHangfireDashboard();
+
+RecurringJob.AddOrUpdate<ScrapeAirMoeppMKJob>("Scraping-Air-Moepp-MK", x => x.scrapeData(), "*/60 * * * *");
+RecurringJob.AddOrUpdate<ScrapeAirMoeppMKJob>("Scraping-Air-Moepp-MK", x => x.scrapeData(), "*/70 * * * *");
 
 app.Run();
