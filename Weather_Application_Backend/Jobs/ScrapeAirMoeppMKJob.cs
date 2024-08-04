@@ -3,9 +3,13 @@
     public class ScrapeAirMoeppMKJob
     {
 
+
+        /// <summary>
+        /// Scrapes data from https://air.moepp.gov.mk/
+        /// </summary>
+        /// <returns></returns>
         public Task scrapeData() 
         {
-            // scrapes data and adds it in the measurements table...
 
             System.Console.WriteLine("Some wild data that occurs every minute lmfao");
             return Task.CompletedTask;

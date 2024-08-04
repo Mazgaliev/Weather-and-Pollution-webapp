@@ -23,7 +23,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Folder Include="Controllers\Dto\" />
     <Folder Include="Migrations\" />
+    <Folder Include="Repository\Dto\" />
   </ItemGroup>
 
 </Project>
