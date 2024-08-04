@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Weather_Application_Backend.Data;
 using Weather_Application_Backend.Jobs;
+using Weather_Application_Backend.Repository.MeasurementsRepository;
 using Weather_Application_Backend.Service.CityService;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -13,7 +14,11 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+// Repositories
 builder.Services.AddScoped<ICityRepository, CityRepository>();
+builder.Services.AddScoped<IMeasurementsRepository, MeasurementsRepository>();
+
+// Services
 builder.Services.AddScoped<ICityService, CityService>();
 
 builder.Services.AddDbContext<WeatherForecastContext>(options =>
@@ -47,6 +52,6 @@ app.MapControllers();
 app.UseHangfireDashboard();
 
 RecurringJob.AddOrUpdate<ScrapeAirMoeppMKJob>("Scraping-Air-Moepp-MK", x => x.scrapeData(), "*/60 * * * *");
-RecurringJob.AddOrUpdate<ScrapeAirMoeppMKJob>("Scraping-Air-Moepp-MK", x => x.scrapeData(), "*/70 * * * *");
+RecurringJob.AddOrUpdate<PredictValuesJob>("Predict-Air-Moepp-MK", x => x.predictValues(), "*/70 * * * *");
 
 app.Run();

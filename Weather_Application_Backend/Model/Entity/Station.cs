@@ -12,6 +12,10 @@ namespace Weather_Application_Backend.Model.Entity
         [Required]
         public string Name { get; set; }
 
+        public string Latitude { get; set; }
+
+        public string Longitude { get; set; }
+
         public int CityId { get; set; }
 
         [ForeignKey("CityId")]
@@ -27,9 +31,11 @@ namespace Weather_Application_Backend.Model.Entity
         {
             
         }
-        public Station(string name)
+        public Station(string name, string latitude, string longitude)
         {
             this.Name = name;
+            Latitude = latitude;
+            Longitude = longitude;
         }
     }
 }
