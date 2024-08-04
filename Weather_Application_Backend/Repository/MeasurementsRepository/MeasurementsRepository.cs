@@ -10,6 +10,12 @@ namespace Weather_Application_Backend.Repository.MeasurementsRepository
         {
             this._weatherForecastContext = weatherForecastContext;
         }
+
+        /// <summary>
+        /// Returns the measurements for the last 24 hours
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
         public Task<IReadOnlyCollection<Measurement>> get_latest_measurerments()
         {
             throw new NotImplementedException();
