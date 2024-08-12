@@ -26,6 +26,7 @@ namespace Weather_Application_Backend.Model.Entity
         public float Windspeed { get; set; }
 
         public float Temperature { get; set; }
+
         public Measurement() { }
 
         public Measurement(DateTime measurementTime, Station station, float pm10, float pm2_5, float humidity, float windspeed, float temperature)

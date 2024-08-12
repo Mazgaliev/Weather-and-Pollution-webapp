@@ -11,7 +11,7 @@ namespace Weather_Application_Backend.Service.CityService
         {
             this._cityRepository = cityRepository;
         }
-        public async Task<IReadOnlyCollection<City>> find_all_cities()
+        public async Task<ICollection<City>> find_all_cities()
         {
             return await this._cityRepository.findAll();
         }

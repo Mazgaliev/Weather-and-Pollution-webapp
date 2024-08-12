@@ -19,9 +19,9 @@ namespace Weather_Application_Backend.Controllers
 
         [HttpGet("all")]
 
-        public async Task<ActionResult<IReadOnlyCollection<City>>> GetCities() 
+        public async Task<ActionResult<ICollection<City>>> GetCities() 
         {
-            IReadOnlyCollection<City> cities = await this._cityService.find_all_cities();
+            ICollection<City> cities = await this._cityService.find_all_cities();
             return Ok(cities);
         }
     }

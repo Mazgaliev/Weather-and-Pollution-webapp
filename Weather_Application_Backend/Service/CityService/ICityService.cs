@@ -4,6 +4,6 @@ namespace Weather_Application_Backend.Service.CityService
 {
     public interface ICityService
     {
-        public Task<IReadOnlyCollection<City>> find_all_cities();
+        public Task<ICollection<City>> find_all_cities();
     }
 }

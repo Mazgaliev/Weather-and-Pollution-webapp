@@ -14,7 +14,7 @@ public class CityRepository : ICityRepository
 		this._context = context;
 	}
 
-    public async Task<IReadOnlyCollection<City>> findAll()
+    public async Task<ICollection<City>> findAll()
     {
         return await this._context.Cities.Include(c => c.Stations).ToListAsync();
     }
@@ -27,5 +27,10 @@ public class CityRepository : ICityRepository
     public Task<City> findCityByNameLike(string name)
     {
         throw new NotImplementedException();
+    }
+
+    public async Task SaveChanges()
+    {
+        await this._context.SaveChangesAsync();
     }
 }

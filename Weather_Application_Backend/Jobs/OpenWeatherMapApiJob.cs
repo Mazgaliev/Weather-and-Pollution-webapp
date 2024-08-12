@@ -1,5 +1,9 @@
-﻿using System.Configuration;
+﻿using Azure.Core;
+using System.Configuration;
+using System.Text;
+using System.Text.Json;
 using System.Text.Json.Nodes;
+using Weather_Application_Backend.Model.Dtos;
 using Weather_Application_Backend.Model.Entity;
 using Weather_Application_Backend.Repository.MeasurementsRepository;
 
@@ -7,13 +11,14 @@ namespace Weather_Application_Backend.Jobs
 {
     public class OpenWeatherMapApiJob
     {
-        private string url = "http://api.openweathermap.org/data/2.5/air_pollution/history";
-        private readonly string api_key = System.Configuration.ConfigurationManager.AppSettings["openweatherapikey"];
+        private string url = "http://localhost:8000/scrape_data/";
         private readonly IMeasurementsRepository _measurementsRepository;
-
-        public OpenWeatherMapApiJob(IMeasurementsRepository measurementsRepository)
+        private readonly ICityRepository _cityRepository;
+        public OpenWeatherMapApiJob(IMeasurementsRepository measurementsRepository, ICityRepository cityRepository)
         {
             this._measurementsRepository = measurementsRepository;
+            this._cityRepository = cityRepository;
+
         }
         /// <summary>
         /// Scrapes data from http://api.openweathermap.org/.
@@ -21,50 +26,44 @@ namespace Weather_Application_Backend.Jobs
         /// Sends a get request to a simple django server that processes the requests 
         /// </summary>
         /// <returns></returns>
-        public Task scrapeData() 
+        public async Task scrapeData() 
         {
+
+            ICollection<City> cities = await this._cityRepository.findAll();
+            List<StationMeasurementDto> api_measurements = new List<StationMeasurementDto>();
             DateTimeOffset.Now.ToUnixTimeSeconds();
 
-            System.Console.WriteLine("Some wild data that occurs every minute lmfao");
-
-            try
+            foreach (City city in cities)
             {
-                //send_request(new Station());
+                foreach (Station station in city.Stations)
+                {
+                    try
+                    {
+                        api_measurements.Add(await send_request(station));
+                    }
+                    catch (Exception ex) 
+                    {
+                        Console.WriteLine(ex);
+                    }
+                }
             }
-            catch (HttpRequestException requestException)
-            {
-                // Do something if error happens lmfao
-            }
-            return Task.CompletedTask;
         }
 
-
-        private async Task send_request(Station station)
+        private async Task<StationMeasurementDto> send_request(Station station)
         {
-
-            string start = DateTimeOffset.Now.AddHours(-24).ToUnixTimeSeconds().ToString();
-            string end = DateTimeOffset.Now.ToUnixTimeSeconds().ToString();
-
             var client = new HttpClient();
-            this.url += $"?lat={station.Latitude}&lon={station.Longitude}&type=hour&start={start}&end={end}&appid={this.api_key}";
-            var request = new HttpRequestMessage(HttpMethod.Get, new Uri(url));
-            
-            using (var response = await client.SendAsync(request))
-            {
-                response.EnsureSuccessStatusCode();
-                var body = await response.Content.ReadAsStringAsync();
-                var root = (JsonObject)JsonNode.Parse(body);
-                Console.WriteLine(body);
-            }
 
-            return ;
+            Dictionary<string, string> content = new Dictionary<string, string>{ { "latitude", station.Latitude.ToString() }, {"longitude", station.Longitude.ToString() } };
+            var data = new FormUrlEncodedContent(content);
+
+
+            var response = await client.PostAsync(this.url, data);
+
+            response.EnsureSuccessStatusCode();
+            var body = await response.Content.ReadAsStringAsync();
+            StationMeasurementDto? result = JsonSerializer.Deserialize<StationMeasurementDto>(body);
+
+            return result == null? new StationMeasurementDto { } : result;
         }
-
-        private ICollection<Measurement> parse_response(JsonObject jsonResponse)
-        {
-
-            return new List<Measurement>();
-        }
-
     }
 }

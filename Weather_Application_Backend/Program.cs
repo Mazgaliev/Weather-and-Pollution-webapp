@@ -51,7 +51,7 @@ app.MapControllers();
 
 app.UseHangfireDashboard();
 
-RecurringJob.AddOrUpdate<OpenWeatherMapApiJob>("Scraping-Air-Moepp-MK", x => x.scrapeData(), "*/60 * * * *");
-RecurringJob.AddOrUpdate<PredictValuesJob>("Predict-Air-Moepp-MK", x => x.predictValues(), "*/70 * * * *");
+RecurringJob.AddOrUpdate<OpenWeatherMapApiJob>("Scraping-Air-Moepp-MK", x => x.scrapeData(), "*/50 * * * *");
+RecurringJob.AddOrUpdate<PredictValuesJob>("Predict-Air-Moepp-MK", x => x.predictValues(), "*/59 * * * *");
 
 app.Run();
