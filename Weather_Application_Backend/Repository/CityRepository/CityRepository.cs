@@ -11,9 +11,6 @@ public class CityRepository : ICityRepository
 	private readonly WeatherForecastContext _context;
 	public CityRepository(WeatherForecastContext context)
 	{
-		//
-		// TODO: Add constructor logic here
-		//
 		this._context = context;
 	}
 
@@ -22,9 +19,9 @@ public class CityRepository : ICityRepository
         return await this._context.Cities.Include(c => c.Stations).ToListAsync();
     }
 
-    public Task<City> findById(int id)
+    public async Task<City?> findById(int id)
     {
-        throw new NotImplementedException();
+        return await _context.Cities.FirstOrDefaultAsync(c => c.Id == id);
     }
 
     public Task<City> findCityByNameLike(string name)

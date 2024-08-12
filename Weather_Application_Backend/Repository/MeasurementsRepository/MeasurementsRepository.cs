@@ -33,5 +33,16 @@ namespace Weather_Application_Backend.Repository.MeasurementsRepository
         {
             throw new NotImplementedException();
         }
+
+        /// <summary>
+        /// Inserts a collection of measurements, mostly used for inserting historical data for missing periods 
+        /// </summary>
+        /// <param name="measurements"></param>
+        /// <returns></returns>
+        /// <exception cref="NotImplementedException"></exception>
+        public Task insert_measurements(ICollection<Measurement> measurements)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

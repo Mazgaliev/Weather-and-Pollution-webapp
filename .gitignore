@@ -363,5 +363,8 @@ MigrationBackup/
 FodyWeavers.xsd
 
 *.dgml
+
 Weather_Application_Backend/Migrations
 appsettings.json
+
+app.config

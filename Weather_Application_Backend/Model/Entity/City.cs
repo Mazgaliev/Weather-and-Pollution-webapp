@@ -17,7 +17,6 @@ namespace Weather_Application_Backend.Model.Entity
 
 
         public City() { }
-
         /// <summary>
         /// Default constructor for City
         /// </summary>

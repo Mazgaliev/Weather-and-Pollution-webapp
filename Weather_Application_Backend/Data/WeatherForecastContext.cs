@@ -13,6 +13,8 @@ namespace Weather_Application_Backend.Data
 
         public DbSet<Station> Stations { get; set; }
 
+        public DbSet<WeatherAppLogs> Logs { get; set; }
+
         public WeatherForecastContext(DbContextOptions options)
             : base(options)
         {

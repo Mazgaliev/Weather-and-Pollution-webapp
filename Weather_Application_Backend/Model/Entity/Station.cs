@@ -23,14 +23,10 @@ namespace Weather_Application_Backend.Model.Entity
         [JsonIgnore]
         public City City { get; set; }
 
-        public ICollection<Measurement> Measurements { get; set; }
+        public ICollection<Measurement> Measurements { get; set; } = new List<Measurement>();
 
-        public ICollection<Forecast> Forecasts { get; set; }
+        public ICollection<Forecast> Forecasts { get; set; } = new List<Forecast>();
 
-        public Station()
-        {
-            
-        }
         public Station(string name, string latitude, string longitude)
         {
             this.Name = name;

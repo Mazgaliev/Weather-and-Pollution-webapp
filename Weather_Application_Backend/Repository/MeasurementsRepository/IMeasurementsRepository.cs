@@ -7,5 +7,7 @@ namespace Weather_Application_Backend.Repository.MeasurementsRepository
         Task<IReadOnlyCollection<Measurement>> get_measurements_between(DateTime from, DateTime to);
 
         Task<IReadOnlyCollection<Measurement>> get_latest_measurerments();
+
+        Task insert_measurements(ICollection<Measurement> measurements);
     }
 }
