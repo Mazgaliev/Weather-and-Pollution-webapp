@@ -44,6 +44,10 @@ namespace Weather_Application_Backend.Data
             modelBuilder.Entity<Measurement>()
                 .HasIndex(e => new { e.MeasurementTime, e.StationId })
                 .IsUnique();
+
+            modelBuilder.Entity<Forecast>()
+                .HasIndex(e => new {e.ForecastTime, e.StationId})
+                .IsUnique();
         }
     }
 }
