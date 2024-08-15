@@ -4,7 +4,6 @@ using System.Text.Json;
 using Weather_Application_Backend.Mappers;
 using Weather_Application_Backend.Model.Dtos;
 using Weather_Application_Backend.Model.Entity;
-using Weather_Application_Backend.Repository.MeasurementsRepository;
 using Weather_Application_Backend.Service.CityService;
 using Weather_Application_Backend.Service.MeasurementService;
 
