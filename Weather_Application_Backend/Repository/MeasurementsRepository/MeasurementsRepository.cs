@@ -1,4 +1,5 @@
-﻿using Weather_Application_Backend.Data;
+﻿using EFCore.BulkExtensions;
+using Weather_Application_Backend.Data;
 using Weather_Application_Backend.Model.Entity;
 
 namespace Weather_Application_Backend.Repository.MeasurementsRepository
@@ -9,6 +10,16 @@ namespace Weather_Application_Backend.Repository.MeasurementsRepository
         public MeasurementsRepository(WeatherForecastContext weatherForecastContext)
         {
             this._weatherForecastContext = weatherForecastContext;
+        }
+
+        public async Task BulkInsert(ICollection<Measurement> measurements)
+        {
+            await Task.Run(() => this._weatherForecastContext.BulkInsert(measurements));
+        }
+
+        public Task BulkUpdate(ICollection<Measurement> measurements)
+        {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -34,15 +45,5 @@ namespace Weather_Application_Backend.Repository.MeasurementsRepository
             throw new NotImplementedException();
         }
 
-        /// <summary>
-        /// Inserts a collection of measurements, mostly used for inserting historical data for missing periods 
-        /// </summary>
-        /// <param name="measurements"></param>
-        /// <returns></returns>
-        /// <exception cref="NotImplementedException"></exception>
-        public Task insert_measurements(ICollection<Measurement> measurements)
-        {
-            throw new NotImplementedException();
-        }
     }
 }

@@ -8,7 +8,7 @@ public interface ICityRepository
 {
     public Task<ICollection<City>> findAll();
 
-    public Task<City> findById(int id);
+    public Task<City?> findById(int id);
 
     public Task<City> findCityByNameLike(string name);
 

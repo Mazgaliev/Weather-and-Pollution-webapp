@@ -36,6 +36,14 @@ namespace Weather_Application_Backend.Data
             modelBuilder.Entity<Forecast>().HasOne(f => f.Station)
                 .WithMany(s => s.Forecasts)
                 .HasForeignKey(s => s.StationId);
+
+            modelBuilder.Entity<Forecast>()
+                .HasIndex(e => e.ForecastTime)
+                .IsUnique();
+
+            modelBuilder.Entity<Measurement>()
+                .HasIndex(e => e.MeasurementTime)
+                .IsUnique();
         }
     }
 }

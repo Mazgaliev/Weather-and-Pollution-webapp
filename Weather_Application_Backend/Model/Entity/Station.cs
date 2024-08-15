@@ -7,6 +7,7 @@ namespace Weather_Application_Backend.Model.Entity
     public class Station
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]

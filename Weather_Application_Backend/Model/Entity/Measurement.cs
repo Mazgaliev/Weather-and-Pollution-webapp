@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Microsoft.EntityFrameworkCore;
+using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Weather_Application_Backend.Model.Entity
@@ -6,6 +7,7 @@ namespace Weather_Application_Backend.Model.Entity
     public class Measurement
     {
         [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int Id { get; set; }
 
         [Required]
@@ -17,27 +19,27 @@ namespace Weather_Application_Backend.Model.Entity
         [ForeignKey("StationId")]
         public Station Station { get; set; }
 
-        public float PM10 { get; set; }
+        public float AQI { get; set; }
 
+        public float PM10 { get; set; }
+        
         public float PM2_5 { get; set; }
 
-        public float Humidity { get; set; }
+        public float CO { get; set; }
 
-        public float Windspeed { get; set; }
-
-        public float Temperature { get; set; }
+        public float SO2 { get; set; }
 
         public Measurement() { }
 
-        public Measurement(DateTime measurementTime, Station station, float pm10, float pm2_5, float humidity, float windspeed, float temperature)
+        public Measurement(DateTime measurementTime, int stationId, float aqi, float pm10, float pm2_5, float co, float so2)
         { 
             this.MeasurementTime = measurementTime;
-            this.Station = station;
+            this.AQI = aqi;
+            this.StationId = stationId;
             this.PM10 = pm10;
             this.PM2_5 = pm2_5;
-            this.Humidity = humidity;
-            this.Windspeed = windspeed;
-            this.Temperature = temperature;
+            this.CO = co;
+            this.SO2 = so2;
         }
     }
 }

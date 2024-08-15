@@ -2,8 +2,10 @@
 using Microsoft.EntityFrameworkCore;
 using Weather_Application_Backend.Data;
 using Weather_Application_Backend.Jobs;
+using Weather_Application_Backend.Mappers;
 using Weather_Application_Backend.Repository.MeasurementsRepository;
 using Weather_Application_Backend.Service.CityService;
+using Weather_Application_Backend.Service.MeasurementService;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -20,6 +22,11 @@ builder.Services.AddScoped<IMeasurementsRepository, MeasurementsRepository>();
 
 // Services
 builder.Services.AddScoped<ICityService, CityService>();
+builder.Services.AddScoped<IMeasurementService, MeasurementService>();
+
+//Mappers
+builder.Services.AddScoped<IAPIDtoMapper, APIDtoMapper>();
+
 
 builder.Services.AddDbContext<WeatherForecastContext>(options =>
 {

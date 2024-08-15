@@ -2,7 +2,6 @@
 {
     public class StationMeasurementDto
     {
-        public int? StationId { get; set; }
         public string? Message { get; set; }
 
         public bool ?Error { get; set; }
