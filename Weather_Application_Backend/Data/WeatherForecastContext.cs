@@ -42,7 +42,7 @@ namespace Weather_Application_Backend.Data
                 .IsUnique();
 
             modelBuilder.Entity<Measurement>()
-                .HasIndex(e => e.MeasurementTime)
+                .HasIndex(e => new { e.MeasurementTime, e.StationId })
                 .IsUnique();
         }
     }

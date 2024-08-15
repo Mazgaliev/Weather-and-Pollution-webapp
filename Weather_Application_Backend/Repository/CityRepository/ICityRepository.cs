@@ -12,5 +12,7 @@ public interface ICityRepository
 
     public Task<City> findCityByNameLike(string name);
 
+    public Task<ICollection<Station>> find_all_stations();
+
     public Task SaveChanges();
 }

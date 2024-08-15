@@ -7,5 +7,6 @@ namespace Weather_Application_Backend.Service.MeasurementService
         void BulkUpdate();
 
         Task BulkInsert(ICollection<Measurement> measurements);
+
     }
 }

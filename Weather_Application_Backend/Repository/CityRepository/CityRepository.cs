@@ -29,6 +29,11 @@ public class CityRepository : ICityRepository
         throw new NotImplementedException();
     }
 
+    public async Task<ICollection<Station>> find_all_stations()
+    {
+        return await this._context.Stations.ToListAsync();
+    }
+
     public async Task SaveChanges()
     {
         await this._context.SaveChangesAsync();

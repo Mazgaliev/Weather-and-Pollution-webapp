@@ -1,9 +1,11 @@
 ﻿using Newtonsoft.Json.Converters;
+using System.Text;
 using System.Text.Json;
 using Weather_Application_Backend.Mappers;
 using Weather_Application_Backend.Model.Dtos;
 using Weather_Application_Backend.Model.Entity;
 using Weather_Application_Backend.Repository.MeasurementsRepository;
+using Weather_Application_Backend.Service.CityService;
 using Weather_Application_Backend.Service.MeasurementService;
 
 namespace Weather_Application_Backend.Jobs
@@ -12,12 +14,12 @@ namespace Weather_Application_Backend.Jobs
     {
         private string url = "http://localhost:8000/scrape_data/";
         private readonly IMeasurementService _measurementService;
-        private readonly ICityRepository _cityRepository;
+        private readonly ICityService _cityService;
         private readonly IAPIDtoMapper _mapper;
-        public OpenWeatherMapApiJob(IMeasurementService measurementService, ICityRepository cityRepository, IAPIDtoMapper mapper)
+        public OpenWeatherMapApiJob(IMeasurementService measurementService, ICityService cityService, IAPIDtoMapper mapper)
         {
             this._measurementService = measurementService;
-            this._cityRepository = cityRepository;
+            this._cityService = cityService;
             this._mapper = mapper;
 
         }
@@ -30,28 +32,15 @@ namespace Weather_Application_Backend.Jobs
         public async Task scrapeData() 
         {
 
-            ICollection<City> cities = await this._cityRepository.findAll();
-            List<StationMeasurementDto> api_measurements = new List<StationMeasurementDto>();
+            ICollection<City> cities = await this._cityService.find_all_cities();
+            ICollection<Station> stations = await this._cityService.find_all_stations();
 
-            foreach (City city in cities)
-            {
-                foreach (Station station in city.Stations)
-                {
-                    try
-                    {
-                        api_measurements.Add(await send_request(station));
-                    }
-                    catch (Exception ex) 
-                    {
-                        Console.WriteLine(ex);
-                    }
-                }
-            }
+            ICollection<StationMeasurementDto> api_measurements =  await send_request(stations);
 
             ICollection<Measurement> parsed_api_measurements = this._mapper.MapAllMeasurementsToDto(api_measurements);
 
             await this._measurementService.BulkInsert(parsed_api_measurements);
-            await this._cityRepository.SaveChanges();
+            // await this._cityRepository.SaveChanges();
 
         }
 
@@ -60,23 +49,23 @@ namespace Weather_Application_Backend.Jobs
         /// </summary>
         /// <param name="station"></param>
         /// <returns>Returns and EMPTY StationMeasurementDto if it is faulty otherwise returns </returns>
-        private async Task<StationMeasurementDto> send_request(Station station)
+        private async Task<ICollection<StationMeasurementDto>> send_request(ICollection<Station> stations)
         {
             var client = new HttpClient();
 
-            Dictionary<string, string> content = new Dictionary<string, string>{ { "latitude", station.Latitude.ToString() },
-                {"longitude", station.Longitude.ToString() }, { "stationId", station.Id.ToString() } };
+            Dictionary<string, ICollection<Station>> content = new Dictionary<string, ICollection<Station>>{ {"stations_payload", stations } };
+            var jsonPayload = JsonSerializer.Serialize(content);
 
-            var data = new FormUrlEncodedContent(content);
+            var data = new StringContent(jsonPayload, Encoding.UTF8, "application/json");
 
             var response = await client.PostAsync(this.url, data);
 
             response.EnsureSuccessStatusCode();
             var body = await response.Content.ReadAsStringAsync();
-            StationMeasurementDto? result = JsonSerializer.Deserialize<StationMeasurementDto>(body);
+            StationMeasurementsResultDto? result = JsonSerializer.Deserialize<StationMeasurementsResultDto>(body);
 
 
-            return result!=null?result: new StationMeasurementDto { };
+            return result != null? result.Result: new List<StationMeasurementDto> ();
         }
     }
 }

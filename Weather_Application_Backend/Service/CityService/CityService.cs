@@ -15,5 +15,10 @@ namespace Weather_Application_Backend.Service.CityService
         {
             return await this._cityRepository.findAll();
         }
+
+        public async Task<ICollection<Station>> find_all_stations()
+        {
+           return await this._cityRepository.find_all_stations();
+        }
     }
 }
