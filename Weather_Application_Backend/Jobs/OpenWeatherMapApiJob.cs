@@ -36,7 +36,7 @@ namespace Weather_Application_Backend.Jobs
 
             ICollection<StationMeasurementDto> api_measurements =  await send_request(stations);
 
-            ICollection<Measurement> parsed_api_measurements = this._mapper.MapAllMeasurementsToDto(api_measurements);
+            ICollection<Measurement> parsed_api_measurements = this._mapper.MapAllMeasurementsDtos(api_measurements);
 
             await this._measurementService.BulkInsert(parsed_api_measurements);
             // await this._cityRepository.SaveChanges();
