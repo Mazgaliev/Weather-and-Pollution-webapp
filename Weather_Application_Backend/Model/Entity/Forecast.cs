@@ -28,10 +28,10 @@ namespace Weather_Application_Backend.Model.Entity
         public float SO2 { get; }
 
         public Forecast() { }
-        public Forecast(DateTime forecastTime, Station station, float pm10, float pm2_5, float co, float so2)
+        public Forecast(DateTime forecastTime, int stationId, float pm10, float pm2_5, float co, float so2)
         {
             this.ForecastTime = forecastTime;
-            this.Station = station;
+            this.StationId = stationId;
             this.PM10 = pm10;
             this.PM2_5 = pm2_5;
             this.CO = co;

@@ -20,5 +20,15 @@ namespace Weather_Application_Backend.Service.MeasurementService
         {
             throw new NotImplementedException();
         }
+
+        public async Task<ICollection<Measurement>> GetLatestNMeasurementsFromAllStations(ICollection<int> stationIds, int numberOfHours)
+        {
+            return await this._measurementsRepository.GetLatestNMeasurementsFromAllStations(stationIds, numberOfHours);
+        }
+
+        public async Task<ICollection<Measurement>> GetLatestNMeasurementsFromStation(int stationId, int numberOfHours)
+        {
+            return await this._measurementsRepository.GetLatestNMeasurementsFromStation(stationId, numberOfHours);
+        }
     }
 }

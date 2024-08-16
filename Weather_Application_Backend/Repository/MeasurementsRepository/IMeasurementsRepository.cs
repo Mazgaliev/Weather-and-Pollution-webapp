@@ -8,6 +8,10 @@ namespace Weather_Application_Backend.Repository.MeasurementsRepository
 
         Task<IReadOnlyCollection<Measurement>> get_latest_measurerments();
 
+        Task<ICollection<Measurement>> GetLatestNMeasurementsFromStation(int stationId , int numberOfHours);
+
+        Task<ICollection<Measurement>> GetLatestNMeasurementsFromAllStations(ICollection<int> stationIds, int numberOfHours);
+
         Task BulkInsert(ICollection<Measurement> measurements);
 
         Task BulkUpdate(ICollection<Measurement> measurements);

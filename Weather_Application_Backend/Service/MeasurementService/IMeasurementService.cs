@@ -8,5 +8,8 @@ namespace Weather_Application_Backend.Service.MeasurementService
 
         Task BulkInsert(ICollection<Measurement> measurements);
 
+        Task<ICollection<Measurement>> GetLatestNMeasurementsFromStation(int stationId, int numberOfHours);
+        Task<ICollection<Measurement>> GetLatestNMeasurementsFromAllStations(ICollection<int> stationIds, int numberOfHours);
+
     }
 }

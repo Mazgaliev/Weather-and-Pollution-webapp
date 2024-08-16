@@ -7,6 +7,10 @@ namespace Weather_Application_Backend.Mappers
     {
         public Measurement MapToEntity(MeasurementDto dto);
 
-        public ICollection<Measurement> MapAllMeasurementsToDto(ICollection<StationMeasurementDto> measurementDtos);
+        public ICollection<Measurement> MapAllMeasurementsDtos(ICollection<StationMeasurementDto> measurementDtos);
+
+        public Forecast MapToEntity(ForecastResultDto dto);
+
+        public ICollection<Forecast> MapAllForecastsDtos(ICollection<ForecastResultDto> forecastsDtos);
     }
 }
