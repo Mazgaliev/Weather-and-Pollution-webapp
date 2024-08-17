@@ -11,14 +11,20 @@ namespace Weather_Application_Backend.Service.MeasurementService
            this._measurementsRepository = measurementsRepository;
         }
 
+        /// <summary>
+        /// Bulk INSERTS OR UPDATES, based on the Measuremnt DateTime and station ID
+        /// If a record exists fora  combination of station ID and MeasuremntTime then it is updated with the new values.
+        /// </summary>
+        /// <param name="measurements"></param>
+        /// <returns></returns>
         public async Task BulkInsert(ICollection<Measurement> measurements)
         {
             await this._measurementsRepository.BulkInsert(measurements);
         }
 
-        public void BulkUpdate()
+        public async Task<ICollection<Measurement>> GetAllMeasurementsFromStation(int stationId)
         {
-            throw new NotImplementedException();
+            return await this._measurementsRepository.GetAllMeasurementsForStation(stationId);
         }
 
         public async Task<ICollection<Measurement>> GetLatestNMeasurementsFromAllStations(ICollection<int> stationIds, int numberOfHours)

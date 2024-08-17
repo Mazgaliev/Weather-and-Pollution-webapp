@@ -34,6 +34,7 @@ namespace Weather_Application_Backend.Jobs
             ICollection<City> cities = await this._cityService.find_all_cities();
             ICollection<Station> stations = await this._cityService.find_all_stations();
 
+            
             ICollection<StationMeasurementDto> api_measurements =  await send_request(stations);
 
             ICollection<Measurement> parsed_api_measurements = this._mapper.MapAllMeasurementsDtos(api_measurements);
@@ -51,8 +52,8 @@ namespace Weather_Application_Backend.Jobs
         private async Task<ICollection<StationMeasurementDto>> send_request(ICollection<Station> stations)
         {
             var client = new HttpClient();
-
-            Dictionary<string, ICollection<Station>> content = new Dictionary<string, ICollection<Station>>{ {"stations_payload", stations } };
+            ScrapeDataRequestDto ScrapeDataPayload = new ScrapeDataRequestDto { Stations = stations, NumberOfHours = 12 };
+            Dictionary<string, ScrapeDataRequestDto> content = new Dictionary<string, ScrapeDataRequestDto> { {"stations_payload", ScrapeDataPayload } };
             var jsonPayload = JsonSerializer.Serialize(content);
 
             var data = new StringContent(jsonPayload, Encoding.UTF8, "application/json");

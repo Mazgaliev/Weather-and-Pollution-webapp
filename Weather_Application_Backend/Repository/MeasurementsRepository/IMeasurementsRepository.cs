@@ -15,5 +15,7 @@ namespace Weather_Application_Backend.Repository.MeasurementsRepository
         Task BulkInsert(ICollection<Measurement> measurements);
 
         Task BulkUpdate(ICollection<Measurement> measurements);
+
+        Task<ICollection<Measurement>> GetAllMeasurementsForStation(int stationId);
     }
 }

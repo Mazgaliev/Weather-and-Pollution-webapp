@@ -31,7 +31,7 @@ namespace Weather_Application_Backend.Jobs
         /// <summary>
         /// Predicts the values for all measurements for the last 24 hours and updates the Forecast table
         /// <br></br>
-        /// PM10, PM2.5
+        /// PM10, PM2.5, NO, CO2, SO
         /// </summary>
         /// <returns></returns>
         public async Task predictValues() 
