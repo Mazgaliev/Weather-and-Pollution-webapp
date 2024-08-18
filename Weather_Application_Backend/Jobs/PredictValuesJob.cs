@@ -39,7 +39,7 @@ namespace Weather_Application_Backend.Jobs
             ICollection<Station> stations = await this._cityService.find_all_stations();
             ICollection<int> ids = stations.Select(x => x.Id).ToList();
 
-            ICollection<Measurement> measurements = await this._measurementService.GetLatestNMeasurementsFromAllStations(ids, 5);
+            ICollection<Measurement> measurements = await this._measurementService.GetLatestNMeasurementsFromAllStations(ids, 48);
 
             ICollection<ForecastResultDto> results = await send_request(measurements);
             ICollection<Forecast> forecasts =  this._mapperService.MapAllForecastsDtos(results);

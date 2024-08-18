@@ -23,9 +23,9 @@ namespace Weather_Application_Backend.Model.Entity
 
         public float PM2_5 { get; set; }
 
-        public float CO { get; }
+        public float CO { get; set; }
 
-        public float SO2 { get; }
+        public float SO2 { get; set; }
 
         public Forecast() { }
         public Forecast(DateTime forecastTime, int stationId, float pm10, float pm2_5, float co, float so2)

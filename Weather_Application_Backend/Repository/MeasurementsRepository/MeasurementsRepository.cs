@@ -28,7 +28,7 @@ namespace Weather_Application_Backend.Repository.MeasurementsRepository
 
         public async Task<ICollection<Measurement>> GetAllMeasurementsForStation(int stationId)
         {
-            return await this._weatherForecastContext.Measurement.Where(m => m.Id == stationId).ToListAsync();
+            return await this._weatherForecastContext.Measurement.Where(m => m.StationId == stationId).ToListAsync();
         }
 
         /// <summary>

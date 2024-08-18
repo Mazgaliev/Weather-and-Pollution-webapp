@@ -1,12 +1,15 @@
-﻿namespace Weather_Application_Backend.Model.Dtos
+﻿using System.Text.Json.Serialization;
+using Weather_Application_Backend.Model.Serializer;
+
+namespace Weather_Application_Backend.Model.Dtos
 {
     public class ForecastResultDto
     {
-        public int stationId { get; set; }
+        public int StationId { get; set; }
+
+        [JsonConverter(typeof(UnixTimestampConverter))]
 
         public DateTime ForecastTime { get; set; }
-
-        public float AQI { get; set; }
 
         public float CO { get; set; }
 

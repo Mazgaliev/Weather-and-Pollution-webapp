@@ -55,7 +55,7 @@ namespace Weather_Application_Backend.Mappers
                 return new Forecast();
             }
 
-            return new Forecast(dto.ForecastTime, dto.stationId, dto.PM10, dto.PM2_5, dto.CO, dto.SO2);
+            return new Forecast(dto.ForecastTime, dto.StationId, dto.PM10, dto.PM2_5, dto.CO, dto.SO2);
         }
     }
 }

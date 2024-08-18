@@ -37,10 +37,6 @@ namespace Weather_Application_Backend.Data
                 .WithMany(s => s.Forecasts)
                 .HasForeignKey(s => s.StationId);
 
-            modelBuilder.Entity<Forecast>()
-                .HasIndex(e => e.ForecastTime)
-                .IsUnique();
-
             modelBuilder.Entity<Measurement>()
                 .HasIndex(e => new { e.MeasurementTime, e.StationId })
                 .IsUnique();
