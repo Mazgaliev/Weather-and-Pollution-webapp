@@ -1,4 +1,5 @@
 ﻿using EFCore.BulkExtensions;
+using Microsoft.Extensions.Options;
 using Weather_Application_Backend.Data;
 using Weather_Application_Backend.Model.Entity;
 
@@ -12,9 +13,12 @@ namespace Weather_Application_Backend.Repository.ForecastRepository
             this._weatherForecastContext = weatherForecastContext;
         }
 
-        public async Task BulkInsert(ICollection<Forecast> forecasts)
+        public async Task BulkInsertOrUpdate(ICollection<Forecast> forecasts)
         {
-            await Task.Run(() => this._weatherForecastContext.BulkInsert(forecasts));
+            await Task.Run(() => this._weatherForecastContext.BulkInsert(forecasts, options =>
+            {
+                options.UpdateByProperties = new List<string> {"ForecastTime", "StationId" };
+            }));
         }
 
         public Task<IReadOnlyCollection<Forecast>> get_forecasts_between(DateTime from, DateTime to)

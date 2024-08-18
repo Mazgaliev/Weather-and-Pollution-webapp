@@ -4,7 +4,7 @@ namespace Weather_Application_Backend.Service.ForecastService
 {
     public interface IForecastService
     {
-        Task BulkInsert(ICollection<Forecast> forecasts);
+        Task BulkInsertOrUpdate(ICollection<Forecast> forecasts);
 
     }
 }

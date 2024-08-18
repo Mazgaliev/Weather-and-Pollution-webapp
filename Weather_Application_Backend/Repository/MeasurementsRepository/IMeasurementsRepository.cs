@@ -12,9 +12,7 @@ namespace Weather_Application_Backend.Repository.MeasurementsRepository
 
         Task<ICollection<Measurement>> GetLatestNMeasurementsFromAllStations(ICollection<int> stationIds, int numberOfHours);
 
-        Task BulkInsert(ICollection<Measurement> measurements);
-
-        Task BulkUpdate(ICollection<Measurement> measurements);
+        Task BulkInsertOrUpdate(ICollection<Measurement> measurements);
 
         Task<ICollection<Measurement>> GetAllMeasurementsForStation(int stationId);
     }

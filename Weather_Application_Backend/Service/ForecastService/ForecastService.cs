@@ -12,9 +12,9 @@ namespace Weather_Application_Backend.Service.ForecastService
            this._forecastRepository = forecastRepository;
         }
 
-        public async Task BulkInsert(ICollection<Forecast> forecasts)
+        public async Task BulkInsertOrUpdate(ICollection<Forecast> forecasts)
         {
-            await this._forecastRepository.BulkInsert(forecasts);
+            await this._forecastRepository.BulkInsertOrUpdate(forecasts);
         }
     }
 }

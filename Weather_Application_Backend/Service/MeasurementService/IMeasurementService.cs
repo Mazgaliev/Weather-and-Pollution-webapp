@@ -4,7 +4,7 @@ namespace Weather_Application_Backend.Service.MeasurementService
 {
     public interface IMeasurementService
     {
-        Task BulkInsert(ICollection<Measurement> measurements);
+        Task BulkInsertOrUpdate(ICollection<Measurement> measurements);
 
         Task<ICollection<Measurement>> GetLatestNMeasurementsFromStation(int stationId, int numberOfHours);
 

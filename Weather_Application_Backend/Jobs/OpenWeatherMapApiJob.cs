@@ -39,7 +39,7 @@ namespace Weather_Application_Backend.Jobs
 
             ICollection<Measurement> parsed_api_measurements = this._mapper.MapAllMeasurementsDtos(api_measurements);
 
-            await this._measurementService.BulkInsert(parsed_api_measurements);
+            await this._measurementService.BulkInsertOrUpdate(parsed_api_measurements);
             // await this._cityRepository.SaveChanges();
 
         }

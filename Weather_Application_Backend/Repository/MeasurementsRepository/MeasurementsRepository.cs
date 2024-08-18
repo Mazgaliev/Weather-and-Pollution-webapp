@@ -13,17 +13,12 @@ namespace Weather_Application_Backend.Repository.MeasurementsRepository
             this._weatherForecastContext = weatherForecastContext;
         }
 
-        public async Task BulkInsert(ICollection<Measurement> measurements)
+        public async Task BulkInsertOrUpdate(ICollection<Measurement> measurements)
         {
             await Task.Run(() => this._weatherForecastContext.BulkInsertOrUpdateAsync(measurements, options =>
             {
                 options.UpdateByProperties = new List<string> { "MeasurementTime", "StationId" };
             }));
-        }
-
-        public Task BulkUpdate(ICollection<Measurement> measurements)
-        {
-            throw new NotImplementedException();
         }
 
         public async Task<ICollection<Measurement>> GetAllMeasurementsForStation(int stationId)

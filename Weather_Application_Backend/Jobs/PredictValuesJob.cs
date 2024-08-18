@@ -44,7 +44,7 @@ namespace Weather_Application_Backend.Jobs
             ICollection<ForecastResultDto> results = await send_request(measurements);
             ICollection<Forecast> forecasts =  this._mapperService.MapAllForecastsDtos(results);
 
-            await this._forecastService.BulkInsert(forecasts);
+            await this._forecastService.BulkInsertOrUpdate(forecasts);
         }
 
         /// <summary>

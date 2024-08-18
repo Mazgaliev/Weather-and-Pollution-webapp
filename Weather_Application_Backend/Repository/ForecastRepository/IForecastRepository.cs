@@ -8,7 +8,7 @@ namespace Weather_Application_Backend.Repository.ForecastRepository
 
         Task<IReadOnlyCollection<Forecast>> get_latest_forecasts();
 
-        Task BulkInsert(ICollection<Forecast> forecasts);
+        Task BulkInsertOrUpdate(ICollection<Forecast> forecasts);
 
     }
 }

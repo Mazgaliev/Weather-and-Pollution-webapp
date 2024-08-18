@@ -17,9 +17,9 @@ namespace Weather_Application_Backend.Service.MeasurementService
         /// </summary>
         /// <param name="measurements"></param>
         /// <returns></returns>
-        public async Task BulkInsert(ICollection<Measurement> measurements)
+        public async Task BulkInsertOrUpdate(ICollection<Measurement> measurements)
         {
-            await this._measurementsRepository.BulkInsert(measurements);
+            await this._measurementsRepository.BulkInsertOrUpdate(measurements);
         }
 
         public async Task<ICollection<Measurement>> GetAllMeasurementsFromStation(int stationId)
