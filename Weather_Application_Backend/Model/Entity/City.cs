@@ -11,9 +11,9 @@ namespace Weather_Application_Backend.Model.Entity
 
         public string Name { get; set; }
 
-        public string Longitude { get; set; }
+        public double Longitude { get; set; }
 
-        public string Latitude { get; set; }
+        public double Latitude { get; set; }
 
         public ICollection<Station> Stations { get; set; } = new List<Station>();
 
@@ -26,7 +26,7 @@ namespace Weather_Application_Backend.Model.Entity
         /// <param name="longitude">longitude coords</param>
         /// <param name="latitude">latitude coords</param>
         /// <param name="stations">A empty or non empty collection of Stations</param>
-        public City(string name, string longitude, string latitude, ICollection<Station> stations)
+        public City(string name, double longitude, double latitude, ICollection<Station> stations)
         { 
             this.Name = name;
             this.Longitude = longitude;

@@ -13,9 +13,9 @@ namespace Weather_Application_Backend.Model.Entity
         [Required]
         public string Name { get; set; }
 
-        public string Latitude { get; set; }
+        public double Latitude { get; set; }
 
-        public string Longitude { get; set; }
+        public double Longitude { get; set; }
 
         public int CityId { get; set; }
 
@@ -28,7 +28,7 @@ namespace Weather_Application_Backend.Model.Entity
 
         public ICollection<Forecast> Forecasts { get; set; } = new List<Forecast>();
 
-        public Station(string name, string latitude, string longitude)
+        public Station(string name, double latitude, double longitude)
         {
             this.Name = name;
             Latitude = latitude;
