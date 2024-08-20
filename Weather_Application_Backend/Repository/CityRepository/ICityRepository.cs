@@ -14,5 +14,7 @@ public interface ICityRepository
 
     public Task<ICollection<Station>> find_all_stations();
 
+    public Task<Station?> find_nearest_station(double longitude, double latitude);
+
     public Task SaveChanges();
 }

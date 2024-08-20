@@ -4,7 +4,7 @@ using Weather_Application_Backend.Model.Serializer;
 
 namespace Weather_Application_Backend.Model.Dtos
 {
-    public class MeasurementDto
+    public class MeasurementResultDto
     {
         public int stationId { get; set; }
 

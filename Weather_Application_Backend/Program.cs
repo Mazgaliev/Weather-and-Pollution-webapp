@@ -2,7 +2,8 @@
 using Microsoft.EntityFrameworkCore;
 using Weather_Application_Backend.Data;
 using Weather_Application_Backend.Jobs;
-using Weather_Application_Backend.Mappers;
+using Weather_Application_Backend.Mappers.ApiDtoMapper;
+using Weather_Application_Backend.Mappers.DBResultMapper;
 using Weather_Application_Backend.Repository.ForecastRepository;
 using Weather_Application_Backend.Repository.MeasurementsRepository;
 using Weather_Application_Backend.Service.CityService;
@@ -30,7 +31,7 @@ builder.Services.AddScoped<IForecastService, ForecastService>();
 
 //Mappers
 builder.Services.AddScoped<IAPIDtoMapper, APIDtoMapper>();
-
+builder.Services.AddScoped<IDBResultMapper, DBResultMapper>();
 
 builder.Services.AddDbContext<WeatherForecastContext>(options =>
 {

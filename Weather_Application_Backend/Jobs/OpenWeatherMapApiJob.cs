@@ -1,7 +1,7 @@
 ﻿using Newtonsoft.Json.Converters;
 using System.Text;
 using System.Text.Json;
-using Weather_Application_Backend.Mappers;
+using Weather_Application_Backend.Mappers.ApiDtoMapper;
 using Weather_Application_Backend.Model.Dtos;
 using Weather_Application_Backend.Model.Entity;
 using Weather_Application_Backend.Service.CityService;
@@ -52,7 +52,7 @@ namespace Weather_Application_Backend.Jobs
         private async Task<ICollection<StationMeasurementDto>> send_request(ICollection<Station> stations)
         {
             var client = new HttpClient();
-            ScrapeDataRequestDto ScrapeDataPayload = new ScrapeDataRequestDto { Stations = stations, NumberOfHours = 12 };
+            ScrapeDataRequestDto ScrapeDataPayload = new ScrapeDataRequestDto { Stations = stations, NumberOfHours = 48 };
             Dictionary<string, ScrapeDataRequestDto> content = new Dictionary<string, ScrapeDataRequestDto> { {"stations_payload", ScrapeDataPayload } };
             var jsonPayload = JsonSerializer.Serialize(content);
 

@@ -33,6 +33,6 @@ namespace Weather_Application_Backend.Model.Entity
             this.Name = name;
             Latitude = latitude;
             Longitude = longitude;
-        }
+        } 
     }
 }

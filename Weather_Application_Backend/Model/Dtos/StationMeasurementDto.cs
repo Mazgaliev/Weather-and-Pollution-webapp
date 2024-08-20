@@ -6,6 +6,6 @@
 
         public bool ?Error { get; set; }
 
-        public ICollection<MeasurementDto> Result {get; set;} = new List<MeasurementDto>();
+        public ICollection<MeasurementResultDto> Result {get; set;} = new List<MeasurementResultDto>();
     }
 }

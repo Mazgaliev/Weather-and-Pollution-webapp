@@ -1,5 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
 
 namespace Weather_Application_Backend.Model.Entity
 {
@@ -17,6 +18,7 @@ namespace Weather_Application_Backend.Model.Entity
 
         [ForeignKey("StationId")]
         [Required]
+        [JsonIgnore]
         public Station Station { get; set; }
 
         public float PM10 { get; set; }

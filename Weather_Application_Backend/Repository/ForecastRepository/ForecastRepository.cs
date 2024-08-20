@@ -15,7 +15,7 @@ namespace Weather_Application_Backend.Repository.ForecastRepository
 
         public async Task BulkInsertOrUpdate(ICollection<Forecast> forecasts)
         {
-            await Task.Run(() => this._weatherForecastContext.BulkInsert(forecasts, options =>
+            await Task.Run(() => this._weatherForecastContext.BulkInsertOrUpdate(forecasts, options =>
             {
                 options.UpdateByProperties = new List<string> {"ForecastTime", "StationId" };
             }));

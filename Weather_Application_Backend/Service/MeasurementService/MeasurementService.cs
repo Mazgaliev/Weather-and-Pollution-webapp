@@ -1,4 +1,5 @@
-﻿using Weather_Application_Backend.Model.Entity;
+﻿using Weather_Application_Backend.Mappers.ApiDtoMapper;
+using Weather_Application_Backend.Model.Entity;
 using Weather_Application_Backend.Repository.MeasurementsRepository;
 
 namespace Weather_Application_Backend.Service.MeasurementService
@@ -6,6 +7,7 @@ namespace Weather_Application_Backend.Service.MeasurementService
     public class MeasurementService : IMeasurementService
     {
         private readonly IMeasurementsRepository _measurementsRepository;
+        private readonly IAPIDtoMapper _APIDtoMapper;
         public MeasurementService(IMeasurementsRepository measurementsRepository)
         {
            this._measurementsRepository = measurementsRepository;

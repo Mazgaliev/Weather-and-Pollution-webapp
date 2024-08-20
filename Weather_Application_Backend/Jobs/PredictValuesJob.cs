@@ -1,6 +1,6 @@
 ﻿using System.Text;
 using System.Text.Json;
-using Weather_Application_Backend.Mappers;
+using Weather_Application_Backend.Mappers.ApiDtoMapper;
 using Weather_Application_Backend.Model.Dtos;
 using Weather_Application_Backend.Model.Entity;
 using Weather_Application_Backend.Service.CityService;

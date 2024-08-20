@@ -1,11 +1,11 @@
 ﻿using Weather_Application_Backend.Model.Dtos;
 using Weather_Application_Backend.Model.Entity;
 
-namespace Weather_Application_Backend.Mappers
+namespace Weather_Application_Backend.Mappers.ApiDtoMapper
 {
     public interface IAPIDtoMapper
     {
-        public Measurement MapToEntity(MeasurementDto dto);
+        public Measurement MapToEntity(MeasurementResultDto dto);
 
         public ICollection<Measurement> MapAllMeasurementsDtos(ICollection<StationMeasurementDto> measurementDtos);
 
