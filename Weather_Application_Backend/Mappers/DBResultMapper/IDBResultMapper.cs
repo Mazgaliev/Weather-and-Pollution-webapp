@@ -5,6 +5,6 @@ namespace Weather_Application_Backend.Mappers.DBResultMapper
 {
     public interface IDBResultMapper
     {
-        public StationDto MapStationDbResultToStationDto(Station station);
+        public StationDto MapStationDbResultToStationDto(Station station, City city);
     }
 }

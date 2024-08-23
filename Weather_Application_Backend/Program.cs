@@ -1,5 +1,7 @@
 ﻿using Hangfire;
+using Microsoft.AspNetCore.Authentication.Certificate;
 using Microsoft.EntityFrameworkCore;
+using System.Net;
 using Weather_Application_Backend.Data;
 using Weather_Application_Backend.Jobs;
 using Weather_Application_Backend.Mappers.ApiDtoMapper;
@@ -55,7 +57,6 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
-app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
@@ -63,9 +64,15 @@ app.MapControllers();
 
 app.UseHangfireDashboard();
 
+ServicePointManager.ServerCertificateValidationCallback +=
+    (sender, cert, chain, sslPolicyErrors) => true;
+
 //Recurring JOBS
-RecurringJob.AddOrUpdate<OpenWeatherMapApiJob>("Scraping-Air-Moepp-MK", x => x.scrapeData(), "0 * * * *");
+RecurringJob.AddOrUpdate<OpenWeatherMapApiJob>("Scraping-Air-Moepp-MK", x => x.scrapeData(), "5 * * * *");
 RecurringJob.AddOrUpdate<PredictValuesJob>("Predict-Air-Moepp-MK", x => x.predictValues(), "10 * * * *");
 RecurringJob.AddOrUpdate<RetrainModelsJob>("Re-Train-Models", x => x.trainModels(), "0 2 * * 1");
+
+app.Urls.Add("http://0.0.0.0:5039");
+app.Urls.Add("https://0.0.0.0:7123");
 
 app.Run();

@@ -31,7 +31,14 @@ namespace Weather_Application_Backend.Service.CityService
             if (station == null) {
                 throw new Exception();
             }
-            StationDto dto = this._dBResultMapper.MapStationDbResultToStationDto(station);
+
+            City? city =  await this._cityRepository.findById(station.CityId);
+
+            if (city == null)
+            {
+                throw new Exception();
+            }
+            StationDto dto = this._dBResultMapper.MapStationDbResultToStationDto(station, city);
 
             return dto;
         }

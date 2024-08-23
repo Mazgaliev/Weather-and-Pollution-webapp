@@ -6,11 +6,13 @@ namespace Weather_Application_Backend.Mappers.DBResultMapper
 {
     public class DBResultMapper : IDBResultMapper
     {
-        public StationDto MapStationDbResultToStationDto(Station station)
+        public StationDto MapStationDbResultToStationDto(Station station, City city)
         {
             StationDto dto = new StationDto();
 
             dto.Id = station.Id;
+            dto.CityName = city.Name;
+            dto.StationName = station.Name;
             dto.Longitude = station.Longitude;
             dto.Latitude = station.Latitude;
             dto.Forecasts = station.Forecasts.Select(MapToForecastToDto).ToList();
@@ -29,6 +31,7 @@ namespace Weather_Application_Backend.Mappers.DBResultMapper
                 CO = measurement.CO,
                 PM10 = measurement.PM10,
                 PM2_5 = measurement.PM2_5,
+                SO2 = measurement.SO2
             };
         }
 
@@ -37,7 +40,7 @@ namespace Weather_Application_Backend.Mappers.DBResultMapper
             return new ForecastDto
             {
                 ForecastTime = forecast.ForecastTime,
-                CO=forecast.CO,
+                CO = forecast.CO,
                 PM10 = forecast.PM10,
                 PM2_5 = forecast.PM2_5,
                 SO2 = forecast.SO2,

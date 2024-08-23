@@ -35,10 +35,11 @@ namespace Weather_Application_Backend.Repository.MeasurementsRepository
         public async Task<ICollection<Measurement>> GetLatestNMeasurementsFromAllStations(ICollection<int> stationIds, int numberOfHours)
         {
             DateTime endTime = DateTime.Now;
-            DateTime startTime = endTime.AddHours(-numberOfHours);
+            DateTime roundedEndTime = endTime.AddMinutes(-endTime.Minute);
+            DateTime startTime = roundedEndTime.AddHours(-numberOfHours);
 
             return await this._weatherForecastContext.Measurement
-                .Where(m => stationIds.Contains(m.StationId) && m.MeasurementTime >= startTime && m.MeasurementTime <= endTime)
+                .Where(m => stationIds.Contains(m.StationId) && m.MeasurementTime >= startTime)
                 .ToListAsync();
         }
 

@@ -28,7 +28,7 @@ namespace Weather_Application_Backend.Controllers
 
 
         [HttpGet("nearest")]
-        public async Task<ActionResult<Station>> GetNearestLocationInfo(double longitude, double latitude)
+        public async Task<ActionResult<StationDto>> GetNearestLocationInfo(double longitude, double latitude)
         {
 
             StationDto station =  await this._cityService.find_nearest_station_info(longitude, latitude);
