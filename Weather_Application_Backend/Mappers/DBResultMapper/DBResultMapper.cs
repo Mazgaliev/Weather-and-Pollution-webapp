@@ -27,7 +27,7 @@ namespace Weather_Application_Backend.Mappers.DBResultMapper
             return new MeasurementDto 
             { 
                 MeasurementTime = measurement.MeasurementTime,
-                AQI = measurement.AQI,
+                AQI = (float)measurement.AQI,
                 CO = measurement.CO,
                 PM10 = measurement.PM10,
                 PM2_5 = measurement.PM2_5,
